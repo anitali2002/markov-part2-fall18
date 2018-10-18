@@ -22,7 +22,7 @@ public class EfficientWordMarkov extends BaseWordMarkov{
 			String[] kGram = new String[myOrder];
 			
 			for (int j = 0; j < myOrder; j++) {
-				kGram[j] = myWords[i];
+				kGram[j] = myWords[i + j];
 			}
 			
 			WordGram gram = new WordGram(kGram, 0, myOrder);
