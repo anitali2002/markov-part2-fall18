@@ -27,7 +27,7 @@ public class EfficientMarkov extends BaseMarkov{
 		
 		myMap.clear();
 		
-		for (int i = 0; i < text.length() - myOrder; i++) {
+		for (int i = 0; i < text.length() - myOrder + 1; i++) {
 			String gram = text.substring(i, i + myOrder);
 			
 			if (!myMap.containsKey(gram)) {
