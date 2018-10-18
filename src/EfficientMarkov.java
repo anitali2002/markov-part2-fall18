@@ -34,15 +34,17 @@ public class EfficientMarkov extends BaseMarkov{
 				myMap.put(gram, new ArrayList<String>());
 			}
 			
-			ArrayList<String> currList = myMap.get(gram);
+			//ArrayList<String> currList = myMap.get(gram);
 			
 			if (i != text.length() - myOrder) {
-				currList.add(text.substring(i + myOrder, i + myOrder + 1));
+				//currList.add(text.substring(i + myOrder, i + myOrder + 1));
+				myMap.get(gram).add(text.substring(i + myOrder, i + myOrder + 1));
 			}
 			else
-				currList.add(PSEUDO_EOS);
+				//currList.add(PSEUDO_EOS);
+				myMap.get(gram).add(PSEUDO_EOS);
 
-			myMap.put(gram, currList);
+			//myMap.put(gram, currList);
 		}
 	}
 	
