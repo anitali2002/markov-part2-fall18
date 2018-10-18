@@ -18,7 +18,7 @@ public class EfficientWordMarkov extends BaseWordMarkov{
 		
 		myMap.clear();
 		
-		for (int i = 0; i < myWords.length - myOrder; i++) {
+		for (int i = 0; i < myWords.length - myOrder + 1; i++) {
 			String[] kGram = new String[myOrder];
 			
 			for (int j = 0; j < myOrder; j++) {
