@@ -3,6 +3,9 @@ This is the analysis for Markov Part 2, Fall 2018
 Include your name and net id here. Answer the questions from the assignment 
 that are reproduced below
 
+Name: Anita Li
+netID: al367
+
 (1) Determine (from running Benchmark.java) how long it takes for 
 BaseMarkov to generate 2,000, 4,000, 8,000, 16,000, and 32,000 
 random characters using the default file and an order 5 Markov Model. 
@@ -11,7 +14,32 @@ The program also generates 4,096 characters using texts that increase in
 size from 496,768 characters to 4,967,680 characters (10 times the number).  
 Do you the timings support the O(NT) analysis for BaseMarkov?
 
+	time	source	#chars
+	0.180	507914	2000
+	0.351	507914	4000
+	0.702	507914	8000
+	1.392	507914	16000
+	2.887	507914	32000
+	
+	0.363	507914	4096
+	0.724	1015828	4096
+	1.097	1523742	4096
+	1.427	2031656	4096
+	1.797	2539570	4096
+	2.238	3047484	4096
+	2.583	3555398	4096
+	2.979	4063312	4096
+	3.311	4571226	4096
+	3.697	5079140	4096
 
+	Yes, the timings do support the O(NT) analysis for BaseMarkov. T is the 
+	efficiency for running getFollows(). Since O(T) is called O(N) times,
+	the efficiency is O(NT), as per the runtime doubling every time the 
+	number of character doubles (doubling the calls to getFollows()). 
+	Additionally, as the size of the source changes, so does the runtime.
+	As the size of the source was multiplied by 1, 2, ... 9, 10, the runtime
+	is also multiplied by 1, 2, 3, ... 9, 10. With a constant number 0f 
+	getFollows() calls, this follows the O(NT) analysis. 
 
 (2) Determine (from running Benchmark.java) how long it takes for 
 EfficientMarkov to generate 2,000, 4,000, 8,000, 16,000, and 32,000 
@@ -21,7 +49,82 @@ The program also generates 4,096 characters using texts that increase in
 size from 496,768 characters to 4,967,680 characters (10 times the number).  
 Do you the timings support the O(N+T) analysis for EfficientMarkov?
 
+	time	source	#chars
+	0.118	507914	2000
+	0.124	507914	4000
+	0.132	507914	8000
+	0.115	507914	16000
+	0.155	507914	32000
+	
+	0.141	507914	4096
+	0.264	1015828	4096
+	0.324	1523742	4096
+	0.474	2031656	4096
+	0.592	2539570	4096
+	0.683	3047484	4096
+	0.875	3555398	4096
+	1.188	4063312	4096
+	1.318	4571226	4096
+	1.842	5079140	4096
+
+	Yes, the timings do support the O(N+T) analysis for EfficientMarkov.
+	As the number of characters double, the runtime is relatively constant
+	since there is a constant number of calls to getFollow(). There is a 
+	constant T, so the runtime is constant. Additionally, as the size of 
+	the source changes, so does the runtime. As the size of the source 
+	was multiplied by 1, 2, ... 9, 10, the runtime is also multiplied 
+	by 1, 2, 3, ... 9, 10. With a constant number 0f getFollows() calls, 
+	this follows the O(N+T) analysis. 
+ 
 (3)The tests in the class Benchmark use an order-5 Markov Model. 
 Run tests that you think are appropriate to determine if the order of the 
 Markov Model has a significant impact on the running time for BaseMarkov. 
 Explain your reasoning.
+	
+	I tested a range of orders (1, 2, 3, 5, 10, 50, 100, 1000) in order to analyze difference in run-times for the BaseMarkov model. 
+	
+	Order: 1						| Order: 2						| Order: 3						| Order 5: 
+	time		source		#chars	| time		source		#chars	| time		source		#chars	| time		source		#chars
+	1.750		507914		2000	| 1.429		507914		2000	| 0.957		507914		2000	| 0.179		507914		2000
+	3.548		507914		4000	| 2.954		507914		4000	| 1.761		507914		4000	| 0.351		507914		4000
+	7.242		507914		8000	| 5.647		507914		8000	| 3.485		507914		8000	| 0.705		507914		8000
+	14.062		507914		16000	| 11.644	507914		16000	| 7.661		507914		16000	| 1.417		507914		16000
+	28.593		507914		32000	| 22.115	507914		32000	| 14.615	507914		32000	| 2.825		507914		32000
+									|								|								|
+	3.721		507914		4096	| 3.409		507914		4096	| 1.997		507914		4096	| 0.367		507914		4096
+	18.437		1015828		4096	| 6.647		1015828		4096	| 4.210		1015828		4096	| 0.730		1015828		4096
+	32.841		1523742		4096	| 9.754		1523742		4096	| 6.539		1523742		4096	| 1.093		1523742		4096
+	46.892		2031656		4096	| 14.159	2031656		4096	| 9.734		2031656		4096	| 1.454		2031656		4096
+	71.651		2539570		4096	| 19.541	2539570		4096	| 11.335	2539570		4096	| 1.843		2539570		4096
+	84.400		3047484		4096	| 25.010	3047484		4096	| 12.545	3047484		4096	| 2.197		3047484		4096
+	99.115		3555398		4096	| 27.034	3555398		4096	| 14.066	3555398		4096	| 2.567		3555398		4096
+	117.276		4063312		4096	| 29.302	4063312		4096	| 16.003	4063312		4096	| 3.012		4063312		4096
+	128.629		4571226		4096	| 38.805	4571226		4096	| 6.759		4571226		4096	| 3.357		4571226		4096
+	145.227		5079140		4096	| 53.007	5079140		4096	| 4.801		5079140		4096	| 3.783		5079140		4096
+	-----------------------------------------------------------------------------------------------------------------------------
+	Order: 10						| Order: 50						| Order: 100					| Order: 1000
+	time		source		#chars	| time		source		#chars	| time		source		#chars 	| time		source		#chars
+	0.166		507914		2000	| 0.236		507914		2000	| 0.192		507914		2000	| 0.492		507914		2000
+	0.324		507914		4000	| 0.403		507914		4000	| 0.381		507914		4000	| 0.323		507914		4000
+	0.658		507914		8000	| 0.818		507914		8000	| 0.846		507914		8000	| 0.714		507914		8000
+	1.295		507914		16000	| 1.684		507914		16000	| 1.568		507914		16000	| 1.241		507914	 	16000
+	2.597		507914		32000	| 3.163		507914		32000	| 2.903		507914		32000	| 3.310		507914		32000
+									|								|								|
+	0.309		507914		4096	| 0.384		507914		4096	| 0.433		507914		4096	| 0.334		507914		4096
+	0.671		1015828		4096	| 0.800		1015828		4096	| 0.903		1015828		4096	| 0.684		1015828		4096
+	0.989		1523742		4096	| 1.256		1523742		4096	| 1.468		1523742		4096	| 1.024		1523742		4096
+	1.328		2031656		4096	| 1.687		2031656		4096	| 1.734		2031656		4096	| 1.386		2031656		4096
+	1.664		2539570		4096	| 2.140		2539570		4096	| 2.166		2539570		4096	| 1.778		2539570		4096
+	2.033		3047484		4096	| 2.223		3047484		4096	| 2.699		3047484		4096	| 2.139		3047484		4096
+	2.420		3555398		4096	| 3.170		3555398		4096	| 3.108		3555398		4096	| 2.752		3555398		4096
+	2.873		4063312		4096	| 3.652		4063312		4096	| 3.889		4063312		4096	| 3.043		4063312		4096
+	3.058		4571226		4096	| 4.221		4571226		4096	| 4.287		4571226		4096	| 3.269		4571226		4096
+	3.456		5079140		4096	| 4.618		5079140		4096	| 4.597		5079140		4096	| 3.541		5079140		4096
+
+	Yes, the order of the Markov Model has a significant impact on the 
+	running time for BaseMarkov (until it reaches a certain order). 
+	For a lower order, there are a lot more keys (possible grams) to check 
+	through. This makes the runtime for lower orders (like order 1 and 2) 
+	slow. As the orders get larger, the run times seem to level out. No 
+	matter how much larger the order is, the runtime has plateaued into a 
+	relatively constant runtime (in terms of between tests for different orders). 
